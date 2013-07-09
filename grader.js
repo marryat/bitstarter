@@ -67,7 +67,9 @@ var checkFile = function($, checksfile) {
         var present = $(checks[ii]).length > 0;
         out[checks[ii]] = present;
     }
-    return out;
+    var outJson = JSON.stringify(out, null, 4);
+    console.log(outJson);
+
 };
 
 var clone = function(fn) {
@@ -87,20 +89,14 @@ if(require.main == module) {
 	    if (result instanceof Error) {
 		console.error('Error: ' + util.format(result.message) + " defaulting back to file name");
 
-		var checkJson = checkHtmlFile(program.file, program.checks);
-		var outJson = JSON.stringify(checkJson, null, 4);
-		console.log(outJson);
+		checkHtmlFile(program.file, program.checks);
 	    } else {
-		var checkJson = checkUrlFile(result, program.checks);
-		var outJson = JSON.stringify(checkJson, null, 4);
-		console.log(outJson);
+		checkUrlFile(result, program.checks);
 	    }
 		
 	});
     } else {
-	var checkJson = checkHtmlFile(program.file, program.checks);
-	var outJson = JSON.stringify(checkJson, null, 4);
-	console.log(outJson);
+	checkHtmlFile(program.file, program.checks);
     }
 } else {
     exports.checkHtmlFile = checkHtmlFile;
